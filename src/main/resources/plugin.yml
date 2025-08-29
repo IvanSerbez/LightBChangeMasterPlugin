@@ -1,0 +1,8 @@
+name: LightBChangeMaster
+version: '1.0'
+main: org.Gornichnaya.lightBChangeMaster.LightBChangeMaster
+api-version: '1.21'
+authors: [ Gornichnaya ]
+description: Allows you to change the brightness of the light block in the Survival game mode
+website: serbezivan@gmail.com
+depend: [WorldGuard]
