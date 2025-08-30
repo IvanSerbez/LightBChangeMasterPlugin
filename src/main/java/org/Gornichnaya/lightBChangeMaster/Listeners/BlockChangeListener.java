@@ -27,95 +27,75 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 
 public class BlockChangeListener implements Listener {
 
 
-    private  final Set<UUID> shiftingPlayers = new HashSet<>();
+
     BlockData blockdata;
 
 
     LightBChangeMaster plugin;
-    public BlockChangeListener(LightBChangeMaster plugin)
-    {
+
+    public BlockChangeListener(LightBChangeMaster plugin) {
         this.plugin = plugin;
     }
 
 
-    @EventHandler
-    public void onShifting(PlayerToggleSneakEvent e)
-    {
-        var p = e.getPlayer();
-        UUID uuid = p.getUniqueId();
-
-        if(p.isSneaking())
-        {
-            shiftingPlayers.add(uuid);
-        } else {shiftingPlayers.remove(uuid);}
-
-    }
 
     @EventHandler
-    public void ChangeListener(PlayerInteractEvent e)
-    {
+    public void ChangeListener(PlayerInteractEvent e) {
         Player p = e.getPlayer();
 
-        if(e.getAction() == Action.RIGHT_CLICK_BLOCK)
-        {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             // если нажимают на блок света, если игрок в сурвивал, если в руке блок света - true
-            if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT && shiftingPlayers.contains(p.getUniqueId())) {
+            if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT && p.isSneaking() == false) {
 
-                if (PrivateChecker(e)){
-                p.sendMessage();
-
-                  blockdata = e.getClickedBlock().getBlockData();
-                 var block = e.getClickedBlock();
-
-                 if(blockdata instanceof Light) {
-                  Light light = (Light) blockdata;
-                  int LightLevel = light.getLevel();
+                if (PrivateChecker(e)) {
 
 
-                  // смена яркости блока. если стоит 0 - ставит максимальный уровень (15).
-                  for (int c = 15; c >= 0; c--) {
-                      if (LightLevel == 0) {
+                    blockdata = e.getClickedBlock().getBlockData();
+                    var block = e.getClickedBlock();
 
-                          light.setLevel(15);
-                          block.setBlockData(light);
-
-                          p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Новый уровень света: " + ChatColor.GREEN + " 15 "));
-
-                          break;
-
-                      }
-                      if (LightLevel - 1 == c) {
-                          light.setLevel(c);
-                          block.setBlockData(light);
-
-                          p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Новый уровень света: " + ChatColor.GREEN + " " + c));
-
-                          break;
+                    if (blockdata instanceof Light) {
+                        Light light = (Light) blockdata;
+                        int LightLevel = light.getLevel();
 
 
-                      }
+                        // смена яркости блока. если стоит 0 - ставит максимальный уровень (15).
+                        for (int c = 15; c >= 0; c--) {
+                            if (LightLevel == 0) {
+
+                                light.setLevel(15);
+                                block.setBlockData(light);
+
+                                p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Новый уровень света: " + ChatColor.GREEN + " 15 "));
+
+                                break;
+
+                            }
+                            if (LightLevel - 1 == c) {
+                                light.setLevel(c);
+                                block.setBlockData(light);
+
+                                p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Новый уровень света: " + ChatColor.GREEN + " " + c));
+
+                                break;
 
 
-                  }
-               }
-              }
+                            }
+
+
+                        }
+                    }
+                }
                 e.setCancelled(true);
             }
         }
-
-
-
     }
+
+
+
 
     // Метод проверки на наличия игрока в привате. вернет True если он есть в привате как Member или Owner (но не учитывает флаг строительства)
     private boolean PrivateChecker(PlayerInteractEvent event ) {
