@@ -27,11 +27,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 public class BlockChangeListener implements Listener {
 
 
+    private  final Set<UUID> shiftingPlayers = new HashSet<>();
     BlockData blockdata;
 
 
@@ -43,6 +49,19 @@ public class BlockChangeListener implements Listener {
 
 
     @EventHandler
+    public void onShifting(PlayerToggleSneakEvent e)
+    {
+        var p = e.getPlayer();
+        UUID uuid = p.getUniqueId();
+
+        if(p.isSneaking())
+        {
+            shiftingPlayers.add(uuid);
+        } else {shiftingPlayers.remove(uuid);}
+
+    }
+
+    @EventHandler
     public void ChangeListener(PlayerInteractEvent e)
     {
         Player p = e.getPlayer();
@@ -50,7 +69,7 @@ public class BlockChangeListener implements Listener {
         if(e.getAction() == Action.RIGHT_CLICK_BLOCK)
         {
             // если нажимают на блок света, если игрок в сурвивал, если в руке блок света - true
-            if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT) {
+            if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT && shiftingPlayers.contains(p.getUniqueId())) {
 
                 if (PrivateChecker(e)){
                 p.sendMessage();
@@ -90,7 +109,7 @@ public class BlockChangeListener implements Listener {
                   }
                }
               }
-                e.setCancelled(true); // отмена действия (возможно и не нужна. но пусть будет на всякий :D )
+                e.setCancelled(true);
             }
         }
 
