@@ -9,6 +9,7 @@ public final class LightBChangeMaster extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new BlockChangeListener(this), this);
         System.out.println("LightBChangeMaster is enabled");
 

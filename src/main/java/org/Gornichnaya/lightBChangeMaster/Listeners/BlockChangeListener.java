@@ -20,20 +20,22 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
+
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Levelled;
+
 import org.bukkit.block.data.type.Light;
-import org.bukkit.configuration.MemoryConfiguration;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockStateMeta;
 
-import javax.xml.crypto.Data;
+import org.bukkit.inventory.meta.ItemMeta;
+
+
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -104,7 +106,10 @@ public class BlockChangeListener implements Listener {
 
         if (e.getAction() == Action.LEFT_CLICK_BLOCK && p.getInventory().getItemInMainHand().getType() == Material.LIGHT)
         {
-            if (PrivateChecker(e)) {
+            // вставить
+            if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT && p.isSneaking() == false)
+            {
+             if (PrivateChecker(e)) {
                 int level;
 
                 String raw = p.getInventory().getItemInMainHand().getItemMeta().getAsString(); // → "minecraft:light[level=N]"
@@ -115,28 +120,48 @@ public class BlockChangeListener implements Listener {
                 if (matcher.find()) {
                     level = Integer.parseInt(matcher.group(1)); // уровень света
 
-                } else {
-                    level = 15;
-                }
+                } else { level = 15; }
 
-                if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT && p.isSneaking() == false) {
-                    blockdata = e.getClickedBlock().getBlockData();
-                    var block = e.getClickedBlock();
 
-                    if (blockdata instanceof Light) {
-                        Light light = (Light) blockdata;
+                blockdata = e.getClickedBlock().getBlockData();
+                var block = e.getClickedBlock();
 
-                        light.setLevel(level);
-                        block.setBlockData(light);
-                        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Установленный уровень света: " + ChatColor.GREEN + level));
+                if (blockdata instanceof Light) {
+                    Light light = (Light) blockdata;
 
-                    }
-
+                    light.setLevel(level);
+                    block.setBlockData(light);
+                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Установленный уровень света: " + ChatColor.GREEN + level));
 
                 }
+
 
             }
 
+        }
+            // копировать
+            if (e.getClickedBlock().getType() == Material.LIGHT && p.getGameMode() == GameMode.SURVIVAL && p.getInventory().getItemInMainHand().getType() == Material.LIGHT && p.isSneaking() == true)
+            {
+
+                blockdata = e.getClickedBlock().getBlockData();
+
+                int copyLightLevel = 15;
+
+                if (blockdata instanceof Light) {
+                    Light light = (Light) blockdata;
+                    copyLightLevel = light.getLevel();
+
+                }
+                        String path = new String(copyLightLevel+"st");
+                        ItemStack itemStack = plugin.getConfig().getItemStack(path);
+
+                        int itemStackAmount = p.getInventory().getItemInMainHand().getAmount();
+                        itemStack.setAmount(itemStackAmount);
+                        p.getInventory().setItemInMainHand(itemStack);
+                        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Скопированный уровень света: " + ChatColor.GREEN + copyLightLevel));
+
+
+            }
         }
     }
 

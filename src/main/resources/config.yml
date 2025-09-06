@@ -1,0 +1,142 @@
+0st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '0'
+1st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '1'
+2st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '2'
+3st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '3'
+4st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '4'
+5st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '5'
+6st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '6'
+7st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '7'
+8st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '8'
+9st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '9'
+10st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '10'
+11st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '11'
+12st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '12'
+13st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '13'
+14st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    BlockStateTag:
+      level: '14'
+15st:
+  ==: org.bukkit.inventory.ItemStack
+  v: 4440
+  type: LIGHT
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
